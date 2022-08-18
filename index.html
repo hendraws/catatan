@@ -1,0 +1,2 @@
+KTP input 
+<input class="form-control" id="no_ktp" name="no_ktp" maxlength="16" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" required>
