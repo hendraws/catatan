@@ -1,0 +1,20 @@
+DB::beginTransaction();
+try {
+
+    $advance               = $request->validated();
+    $replacePaidDateString = strtr($request->paid_date, '/', '-');
+    $advance['paid_date']  = date('Y-m-d', strtotime($replacePaidDateString));
+    $advance['amount']  = str_replace('.', '', $request->amount);
+    $advance['created_by'] = auth()->user()->id;
+
+    $data                  = Timprofitadvance::updateOrCreate(['id' => $request->id], $advance);
+    $msg = 'Data berhasil ditambah';
+    if($data->wasChanged()){
+        $msg = 'Data Berhasil Di Update';
+    }
+} catch (\Exception $e) {
+    DB::rollBack();
+    return ResponseFormatter::error($e->getMessage(), 'Terjadi Kesalahan',500);
+}
+DB::commit();
+return ResponseFormatter::success(null, $msg);

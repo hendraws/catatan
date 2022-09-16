@@ -1,0 +1,55 @@
+<!-- JS -->
+$(document).on("click", ".modal-button", function () {
+    let modalID = $(this).data('url');
+    let modalSize = $(this).data('mode');
+    let modalBG = $(this).data('color');
+    let modalTarget = $(this).data('target');
+    if (modalBG === undefined) {
+        $('.modal').children().children('#content').removeClass().addClass('modal-content');
+    } else {
+        $('.modal').children().children('#content').removeClass().addClass('modal-content ' + modalBG);
+    }
+    if (modalSize === undefined || modalSize === false || modalSize === 'md') {
+        $('.modal').children().removeClass().addClass('modal-dialog modal-dialog-centered');
+    } else {
+        $('.modal').children().removeClass().addClass('modal-dialog modal-dialog-centered modal-' + modalSize);
+    }
+    if (modalTarget === 'alt') {
+        $('#ModalFormAlt').modal('show').find('.modal-content-form').load(modalID);
+    } else {
+        $('#ModalForm').modal('show').find('.modal-content-form').load(modalID);
+    }
+});
+
+<!-- MODAL -->
+<div class="modal fade" id="ModalFormSm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-content-form"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalForm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-content-form"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalFormLg" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-content-form"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalFormXl" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-content-form"></div>
+        </div>
+    </div>
+</div>
+
+<!-- INPUT -->
+<a class="btn btn-sm btn-primary ml-2 float-right modal-button" href="javascript:void(0)" data-target="ModalForm" data-url="{{ action('RefOptionController@create') }}" data-toggle="tooltip" data-placement="top" title="Tambah Reference Option" data-mode="lg">Tambah Option </a>
